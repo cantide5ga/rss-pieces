@@ -1,0 +1,44 @@
+{
+  "author": "cantide5ga",
+  "name": "rss-pieces",
+  "description": "Dinky fullstack RSS reader",
+  "version": "0.1.0",
+  "scripts": {
+    "clean": "rm -rf build && rm -rf dist",
+    "install:latest": "npm install --save-dev typings@* typescript@* istanbul@* jasmine@*",
+    "init": "rm -rf .git && npm run install:latest && npm init && git init",
+    "compile": "tsc",
+    "build:tsc": "npm run compile",
+    "prebuild": "npm run clean && mkdir -p dist",
+    "bundle": "browserify build/client.js --standalone rss_pieces > dist/bundle.js",
+    "build": "npm run build:tsc && npm run bundle",
+    "start": "npm run build && cd build && node server.js",
+    "test": "rm -rf build && npm run build:tsc && istanbul cover jasmine",
+    "posttest": "istanbul check-coverage --statements 80 --functions 80 --branches 80 --lines 80"
+  },
+  "dependencies": {
+    "bluebird": "^3.3.5",
+    "express": "^4.13.4",
+    "feed-read": "0.0.1",
+    "http": "0.0.0",
+    "request": "^2.72.0"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.1",
+    "istanbul": "^0.4.3",
+    "jasmine": "^2.4.1",
+    "tsd": "^0.6.5",
+    "typescript": "^1.8.10",
+    "typings": "^1.0.4"
+  },
+  "main": "index.js",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cantide5ga/rss-pieces.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cantide5ga/rss-pieces/issues"
+  },
+  "homepage": "https://github.com/cantide5ga/rss-pieces#readme"
+}
