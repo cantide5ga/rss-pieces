@@ -1,5 +1,6 @@
-RSS Pieces
------
+#RSS Pieces
+![alt text](reeses.jpg "RSS Pieces")
+
 Very minimal RSS reader mindful of resources and complexity (including minimal dependencies).  Server and client side cacheing.  Node.js backend w/ frontend browserified bundeled script for dropping into HTML.  Typescript!  
 
 TODO

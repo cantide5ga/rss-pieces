@@ -4,17 +4,17 @@ import * as request from 'request';
 let cachedArticles: Promise<Array<Article>> = null;
 const requestAsync = Promise.promisify(request)({ uri: 'http://localhost:3000' });
 const key = 'message_body';
+const feedsEl = document.getElementById('feeds');
 
 getFeeds()
 .then(articles => {
     articles.forEach(article => {
-        const feedsEl = document.getElementById('feeds');
-        let feedEl = document.createElement('div');
-        feedEl.setAttribute('class', 'feed');
+        let articleEl = document.createElement('div');
+        articleEl.setAttribute('class', 'article');
                 
-        feedEl.innerHTML = `<h3>${article.title}</h3>${article.content}<hr />`;
+        articleEl.innerHTML = `<h3>${article.title}</h3>${article.content}<hr />`;
         
-        feedsEl.appendChild(feedEl);
+        feedsEl.appendChild(articleEl);
     });
 })
 
