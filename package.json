@@ -9,10 +9,10 @@
     "init": "rm -rf .git && npm run install:latest && npm init && git init",
     "compile": "tsc",
     "build:tsc": "npm run compile",
-    "prebuild": "npm run clean && mkdir -p dist",
-    "bundle": "browserify build/client.js --standalone rss_pieces > dist/bundle.js",
+    "prebuild": "npm run clean && mkdir -p dist/lib",
+    "bundle": "browserify build/client/View.jsx --standalone rss_pieces > dist/lib/bundle.js",
     "build": "npm run build:tsc && npm run bundle",
-    "start": "npm run build && cd build && node server.js",
+    "start": "npm run build && cp -r src/server build && cd build && node server.js",
     "test": "rm -rf build && npm run build:tsc && istanbul cover jasmine",
     "posttest": "istanbul check-coverage --statements 80 --functions 80 --branches 80 --lines 80"
   },
@@ -21,6 +21,7 @@
     "express": "^4.13.4",
     "feed-read": "0.0.1",
     "http": "0.0.0",
+    "jade": "^1.11.0",
     "request": "^2.72.0"
   },
   "devDependencies": {

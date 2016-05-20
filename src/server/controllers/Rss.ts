@@ -1,35 +1,12 @@
 import * as Promise from 'bluebird';
 import * as feedRead from 'feed-read';
-import * as express from 'express';
 
 const feed = Promise.promisify(feedRead);
 let cachedArticles: Promise<Article[]> = null;
 // TODO urls?
 let cachedUrl: string = null;
 
-(() => {
-    const app = express();
-    
-    app.get('/', (request, response) => {
-        getArticles()
-        .then(articles => {
-            response.header("Access-Control-Allow-Origin", "*");
-            response.status(200).send(articles);
-        })
-    });
-
-    app.post('/', (request, response) => {
-        invalidateUrlCache();
-        
-        response.header("Access-Control-Allow-Origin", "*");
-        response.status(204).send(null);
-    })
-
-    app.listen(3000);
-    console.log(`${new Date()} server started`);
-})();
-
-function getArticles(): Promise<Article[]> {
+export function getArticles(): Promise<Article[]> {
     if(!cachedArticles) {
         console.log('RSS articles not cached; fetching...');
         

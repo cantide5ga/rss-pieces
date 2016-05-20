@@ -4,22 +4,9 @@ import * as request from 'request';
 let cachedArticles: Promise<Array<Article>> = null;
 const requestAsync = Promise.promisify(request)({ uri: 'http://localhost:3000' });
 const key = 'message_body';
-const feedsEl = document.getElementById('feeds');
-
-getFeeds()
-.then(articles => {
-    articles.forEach(article => {
-        let articleEl = document.createElement('div');
-        articleEl.setAttribute('class', 'article');
-                
-        articleEl.innerHTML = `<h3>${article.title}</h3>${article.content}<hr />`;
-        
-        feedsEl.appendChild(articleEl);
-    });
-})
 
 //two levels of caching: 'session' (via cachedArticles var) and a broader persistant cache
-function getFeeds(): Promise<Array<Article>> {
+export function getFeeds(): Promise<Array<Article>> {
     if(!cachedArticles) {
         const cachedMessageBody = localStorage.getItem(key);
         
@@ -38,6 +25,7 @@ function getFeeds(): Promise<Array<Article>> {
     return cachedArticles
 }
 
+//TODO consider decoration of this var; this is a cross cutting concern
 (() => {
     const ttl = 300000; // invalidates every 5 minutes
     setInterval(() => {
